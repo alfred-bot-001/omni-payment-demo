@@ -240,8 +240,8 @@
             </div>
             <div class="payment-method" data-method="virtual-card">
               <span class="drag">↕</span>
-              <div><strong>申请 Binance 虚拟卡</strong><small>即时开通，支持 Agent 服务订阅、SaaS、API 和传统网页收银台</small></div>
-              <span>可开通</span>
+              <div><strong>申请 Binance Mastercard 卡</strong><small>虚拟 Visa/Mastercard 卡，即时开通，支持 Agent 服务订阅、SaaS、API 和传统网页收银台</small></div>
+              <button class="secondary small-action" id="applyVirtualCard" type="button">申请</button>
             </div>
           </div>
 
@@ -260,23 +260,46 @@
 
         <section class="success-card hidden" id="successStep">
           <p class="step-label">步骤 3 / 3</p>
-          <h3>Binance 虚拟卡申请成功</h3>
-          <div class="virtual-card-preview" aria-label="Binance 虚拟卡">
-            <div class="virtual-card-top">
-              <span>BINANCE</span>
-              <strong>VISA</strong>
-            </div>
-            <div class="virtual-card-chip"></div>
-            <div class="virtual-card-number">4895  73••  ••••  9021</div>
-            <div class="virtual-card-bottom">
-              <div><span>VALID THRU</span><strong>08/29</strong></div>
-              <div><span>CVV</span><strong>•••</strong></div>
-              <div><span>CARD HOLDER</span><strong>MAX DEV</strong></div>
-            </div>
-          </div>
-          <p>虚拟 Visa/Mastercard 卡已添加到 Binance Agent Wallet。Agent 专有 API Key、额度和风控策略已生效。</p>
+          <h3>授权完成</h3>
+          <p>Binance Agent Wallet 已绑定到 Claude Code / Codex。Agent 专有 API Key、虚拟 Visa/Mastercard 卡、额度和风控策略已生效。</p>
           <button class="primary" id="returnTerminal" type="button">返回开发者终端</button>
         </section>
+      </div>
+    </section>
+  </div>
+
+  <div class="auth-modal" id="virtualCardModal" aria-hidden="true">
+    <section class="merchant-browser checkout-browser" role="dialog" aria-modal="true" aria-labelledby="virtualCardTitle">
+      <header class="browser-header">
+        <div class="window-dots"><i></i><i></i><i></i></div>
+        <div class="address-bar">https://cards.binance.com/virtual-card/mastercard</div>
+        <button id="closeVirtualCard" type="button" aria-label="关闭">×</button>
+      </header>
+      <div class="checkout-body">
+        <div class="checkout-brand">
+          <div class="binance-logo">◆</div>
+          <div>
+            <p>Binance Card</p>
+            <h2 id="virtualCardTitle">Binance Mastercard 卡申请成功</h2>
+          </div>
+        </div>
+
+        <div class="virtual-card-preview" aria-label="Binance Mastercard 虚拟卡">
+          <div class="virtual-card-top">
+            <span>BINANCE</span>
+            <strong>MASTERCARD</strong>
+          </div>
+          <div class="virtual-card-chip"></div>
+          <div class="virtual-card-number">4895  73••  ••••  9021</div>
+          <div class="virtual-card-bottom">
+            <div><span>VALID THRU</span><strong>08/29</strong></div>
+            <div><span>CVV</span><strong>•••</strong></div>
+            <div><span>CARD HOLDER</span><strong>MAX DEV</strong></div>
+          </div>
+        </div>
+
+        <p class="virtual-card-note">这张虚拟 Mastercard 卡已添加到 Binance Agent Wallet，可用于 Agent 服务订阅、SaaS、API 和传统网页收银台。</p>
+        <button class="primary" id="returnFromVirtualCard" type="button">返回支付方式</button>
       </div>
     </section>
   </div>

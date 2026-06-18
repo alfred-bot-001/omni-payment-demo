@@ -33,6 +33,10 @@ const checkoutSuccessStep = document.getElementById("checkoutSuccessStep");
 const checkoutLoginBtn = document.getElementById("checkoutLoginBtn");
 const closeCheckoutSuccess = document.getElementById("closeCheckoutSuccess");
 const checkoutSuccessText = document.getElementById("checkoutSuccessText");
+const applyVirtualCard = document.getElementById("applyVirtualCard");
+const virtualCardModal = document.getElementById("virtualCardModal");
+const closeVirtualCard = document.getElementById("closeVirtualCard");
+const returnFromVirtualCard = document.getElementById("returnFromVirtualCard");
 
 const authModal = document.getElementById("authModal");
 const closeAuth = document.getElementById("closeAuth");
@@ -143,6 +147,16 @@ function openAuthModal() {
 function closeAuthModal() {
   authModal.classList.remove("visible");
   authModal.setAttribute("aria-hidden", "true");
+}
+
+function openVirtualCardModal() {
+  virtualCardModal.classList.add("visible");
+  virtualCardModal.setAttribute("aria-hidden", "false");
+}
+
+function closeVirtualCardModal() {
+  virtualCardModal.classList.remove("visible");
+  virtualCardModal.setAttribute("aria-hidden", "true");
 }
 
 async function bindWalletFlow() {
@@ -523,6 +537,9 @@ loginBtn.addEventListener("click", () => {
   loginStep.classList.add("hidden");
   permissionStep.classList.remove("hidden");
 });
+applyVirtualCard.addEventListener("click", openVirtualCardModal);
+closeVirtualCard.addEventListener("click", closeVirtualCardModal);
+returnFromVirtualCard.addEventListener("click", closeVirtualCardModal);
 confirmAuth.addEventListener("click", () => {
   permissionStep.classList.add("hidden");
   successStep.classList.remove("hidden");
@@ -531,6 +548,11 @@ returnTerminal.addEventListener("click", completeWalletBinding);
 authModal.addEventListener("click", (event) => {
   if (event.target === authModal) {
     closeAuthModal();
+  }
+});
+virtualCardModal.addEventListener("click", (event) => {
+  if (event.target === virtualCardModal) {
+    closeVirtualCardModal();
   }
 });
 

@@ -117,19 +117,35 @@
           <p>Agent Product Launch</p>
           <h1>Agent 商品发布上线</h1>
         </div>
-        <button class="primary" id="publishDemo" type="button">模拟上架</button>
+        <button class="primary" id="publishDemo" type="button">开始发布</button>
       </header>
 
-      <section class="split-layout">
-        <div class="wizard">
-          <div class="wizard-step active"><span>1</span><div><strong>创建商户项目</strong><p>生成 agent-service.json、OpenAPI、MCP tools。</p></div></div>
-          <div class="wizard-step"><span>2</span><div><strong>配置商品与报价</strong><p>定义能力、计费单位、试用额度、退款策略。</p></div></div>
-          <div class="wizard-step"><span>3</span><div><strong>KYB / 风控审核</strong><p>绑定 Binance Merchant ID，设置自动付款白名单。</p></div></div>
-          <div class="wizard-step"><span>4</span><div><strong>发布到 Marketplace</strong><p>Agent 可以搜索、比较、请求 quote 并自动付款。</p></div></div>
+      <section class="terminal-shell publish-terminal">
+        <header class="terminal-topbar">
+          <div class="window-dots"><i></i><i></i><i></i></div>
+          <div>
+            <p>claude-code session</p>
+            <h1>~/company/binance-market-data-agent-product</h1>
+          </div>
+          <div class="session-meta">
+            <span>product: Draft</span>
+            <span id="publishStatus">launch: 未发布</span>
+          </div>
+        </header>
+
+        <div class="terminal-output" id="publishOutput" aria-live="polite"></div>
+
+        <form class="terminal-input-row" id="publishForm">
+          <span class="prompt">❯</span>
+          <input id="publishInput" autocomplete="off" spellcheck="false" placeholder="输入：发布binance market data agent商品">
+          <button type="submit">↵</button>
+        </form>
+
+        <div class="quick-actions">
+          <span>演示命令</span>
+          <button type="button" id="publishQuick">发布 Binance Market Data Agent 商品</button>
+          <button type="button" data-tab-jump="marketplace">查看 Marketplace</button>
         </div>
-        <pre class="code-card" id="publishLog">binance merchant init binance-market-data
-binance merchant attach-mcp https://mcp.market-data.binance.com
-binance merchant publish --agent-discoverable</pre>
       </section>
     </section>
 

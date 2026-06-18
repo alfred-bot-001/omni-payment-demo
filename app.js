@@ -3,7 +3,11 @@ const terminalForm = document.getElementById("terminalForm");
 const terminalInput = document.getElementById("terminalInput");
 const walletStatus = document.getElementById("walletStatus");
 const publishDemo = document.getElementById("publishDemo");
-const publishLog = document.getElementById("publishLog");
+const publishOutput = document.getElementById("publishOutput");
+const publishForm = document.getElementById("publishForm");
+const publishInput = document.getElementById("publishInput");
+const publishQuick = document.getElementById("publishQuick");
+const publishStatus = document.getElementById("publishStatus");
 const checkoutDemo = document.getElementById("checkoutDemo");
 const checkoutOutput = document.getElementById("checkoutOutput");
 const checkoutForm = document.getElementById("checkoutForm");
@@ -97,6 +101,22 @@ function appendCheckoutLine(text, type = "assistant") {
   message.append(role, content);
   checkoutOutput.appendChild(message);
   checkoutOutput.scrollTop = checkoutOutput.scrollHeight;
+}
+
+function appendPublishLine(text, type = "assistant") {
+  const message = document.createElement("div");
+  message.className = `message ${type}`;
+  const role = document.createElement("div");
+  role.className = "role";
+  role.textContent = roleMap[type] || "⏺";
+  const content = document.createElement("div");
+  content.className = "content";
+  const paragraph = document.createElement("p");
+  paragraph.textContent = text;
+  content.appendChild(paragraph);
+  message.append(role, content);
+  publishOutput.appendChild(message);
+  publishOutput.scrollTop = publishOutput.scrollHeight;
 }
 
 function activateTab(tabId) {
@@ -275,32 +295,35 @@ async function marketplacePurchase(service) {
 async function runPublishDemo() {
   if (publishRunning) return;
   publishRunning = true;
-  publishLog.textContent = "$ binance merchant init binance-market-data";
+  publishInput.value = "";
+  appendPublishLine("发布binance market data agent商品", "user");
+  await wait(700);
+  appendPublishLine("我会把 Binance Market Data 包装成 Agent 可发现、可报价、可自动付款调用的商品。", "assistant");
   await wait(800);
-  publishLog.textContent += "\n✓ 已生成 .well-known/agent-service.json";
-  setWizardStep(1);
+  appendPublishLine("$ binance agent-product init binance-market-data", "tool");
   await wait(900);
-  publishLog.textContent += "\n$ binance merchant product add historical-ohlcv --unit query --price 0.02USDT";
+  appendPublishLine("已生成 .well-known/agent-service.json、OpenAPI schema、MCP tool manifest。", "success");
   await wait(900);
-  publishLog.textContent += "\n✓ 已配置 quote API、试用额度、退款策略";
-  setWizardStep(2);
+  appendPublishLine("$ binance agent-product capability add historical_ohlcv realtime_quote dex_pair_quote", "tool");
   await wait(900);
-  publishLog.textContent += "\n$ binance merchant verify --kyb --risk-policy agent-autopay";
+  appendPublishLine("已配置能力：历史 OHLCV、实时价格、DEX Pair Quote、资产元数据。", "success");
+  await wait(900);
+  appendPublishLine("$ binance agent-product pricing set --unit query --price 0.02USDT --trial 100calls", "tool");
+  await wait(900);
+  appendPublishLine("已配置报价接口、试用额度、退款策略和 Agent 自动付款上限。", "success");
+  await wait(900);
+  appendPublishLine("$ binance agent-product verify --kyb binance-official --risk-policy agent-autopay", "tool");
   await wait(1000);
-  publishLog.textContent += "\n✓ KYB 通过，自动付款额度：10 USDT / transaction";
-  setWizardStep(3);
+  appendPublishLine("KYB / 风控审核通过：官方数据商品，低风险，允许 Agent 小额自动付款。", "success");
   await wait(900);
-  publishLog.textContent += "\n$ binance merchant publish --marketplace --mcp https://mcp.market-data.binance.com";
+  appendPublishLine("$ binance agent-product publish --marketplace --mcp https://mcp.market-data.binance.com", "tool");
   await wait(900);
-  publishLog.textContent += "\n✓ 已发布：Agent 可搜索、比较、报价、付款、调用";
-  setWizardStep(4);
+  appendPublishLine("发布完成：Agent 可搜索、比较、请求 quote、使用 Binance Agent Wallet 或 x402 付款并调用。", "success");
+  publishStatus.textContent = "launch: 已上线";
+  publishStatus.classList.add("connected");
+  await wait(700);
+  appendPublishLine("商品已出现在 Binance Agent Marketplace：Binance Market Data MCP。", "assistant");
   publishRunning = false;
-}
-
-function setWizardStep(activeNumber) {
-  document.querySelectorAll(".wizard-step").forEach((step, index) => {
-    step.classList.toggle("active", index + 1 <= activeNumber);
-  });
 }
 
 async function runCheckoutDemo() {
@@ -438,6 +461,19 @@ document.querySelectorAll(".marketplace-buy").forEach((button) => {
 });
 
 publishDemo.addEventListener("click", runPublishDemo);
+publishQuick.addEventListener("click", runPublishDemo);
+publishForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const command = publishInput.value.trim().toLowerCase();
+  if (!command) return;
+  if (command.includes("发布") || command.includes("上线") || command.includes("publish")) {
+    runPublishDemo();
+    return;
+  }
+  appendPublishLine(publishInput.value, "user");
+  publishInput.value = "";
+  appendPublishLine("可以输入：发布binance market data agent商品", "dim");
+});
 checkoutDemo.addEventListener("click", runCheckoutDemo);
 checkoutQuick.addEventListener("click", runCheckoutDemo);
 checkoutForm.addEventListener("submit", (event) => {
@@ -499,5 +535,7 @@ authModal.addEventListener("click", (event) => {
 
 appendLine("Claude Code 已连接到本地项目：~/demo/binance-agent-wallet", "success");
 appendLine("可以输入：我要绑定binance agent wallet", "dim");
+appendPublishLine("Claude Code 已进入 Agent 商品目录：~/company/binance-market-data-agent-product", "success");
+appendPublishLine("可以输入：发布binance market data agent商品", "dim");
 appendCheckoutLine("Claude Code 已进入第三方商家网站项目：~/company/twitterapi-web", "success");
 appendCheckoutLine("可以输入：集成binance统一收银台", "dim");

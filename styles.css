@@ -547,6 +547,12 @@ input {
   background: rgba(34, 197, 94, 0.1);
 }
 
+#publishStatus.connected {
+  border-color: rgba(34, 197, 94, 0.5);
+  color: var(--green);
+  background: rgba(34, 197, 94, 0.1);
+}
+
 #openMerchantSite:disabled,
 #testWebPayment:disabled {
   opacity: 0.42;

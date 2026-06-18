@@ -238,12 +238,17 @@
               <div><strong>绑定银行卡</strong><small>Visa **** 1848，仅在余额不足时提示确认</small></div>
               <span>备用</span>
             </div>
+            <div class="payment-method" data-method="virtual-card">
+              <span class="drag">↕</span>
+              <div><strong>申请 Binance 虚拟卡</strong><small>即时开通，支持 Agent 服务订阅、SaaS、API 和传统网页收银台</small></div>
+              <span>可开通</span>
+            </div>
           </div>
 
           <div class="limit-grid">
             <label>每日自动付款限额<input id="dailyLimit" value="100 USDT"></label>
             <label>单笔自动付款限额<input id="txLimit" value="10 USDT"></label>
-            <label>授权有效期<input id="authDays" value="30 天"></label>
+            <label>虚拟卡月限额<input id="virtualCardLimit" value="500 USDT"></label>
           </div>
 
           <div class="policy-note">
@@ -256,7 +261,7 @@
         <section class="success-card hidden" id="successStep">
           <p class="step-label">步骤 3 / 3</p>
           <h3>授权完成</h3>
-          <p>Binance Agent Wallet 已绑定到 Claude Code / Codex。Agent 专有 API Key 已创建，额度和风控策略已生效。</p>
+          <p>Binance Agent Wallet 已绑定到 Claude Code / Codex。Agent 专有 API Key 已创建，Binance 虚拟卡申请通过，额度和风控策略已生效。</p>
           <button class="primary" id="returnTerminal" type="button">返回开发者终端</button>
         </section>
       </div>
@@ -342,6 +347,9 @@
             </button>
             <button class="payment-choice" type="button" data-pay-method="链上 DEX 钱包余额">
               <span>链上 / DEX 钱包余额</span><strong>0.84 BNB + 126.50 USDT on BNB Chain</strong>
+            </button>
+            <button class="payment-choice" type="button" data-pay-method="Binance 虚拟卡">
+              <span>Binance 虚拟卡</span><strong>Virtual Visa **** 9021 · 月限额 500 USDT</strong>
             </button>
             <button class="payment-choice" type="button" data-pay-method="绑定银行卡">
               <span>绑定银行卡</span><strong>Visa **** 1848</strong>

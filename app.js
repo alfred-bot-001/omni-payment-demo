@@ -165,9 +165,9 @@ function completeWalletBinding() {
   walletStatus.classList.add("connected");
   closeAuthModal();
   appendLine("Binance Agent Wallet 已绑定。", "success");
-  appendLine("统一钱包资金来源：Binance 钱包余额 -> 链上钱包余额 -> Binance 虚拟卡 -> 绑定银行卡，覆盖加密资产和法币资金来源。", "system");
+  appendLine("统一钱包资金来源：Binance 钱包余额 -> 链上钱包余额 -> Binance 虚拟 Visa/Mastercard 卡 -> 绑定银行卡，覆盖加密资产和法币资金来源。", "system");
   appendLine("Agent 专有 API Key 已创建：仅限当前开发工具和个人 Agent 使用。", "success");
-  appendLine("Binance 虚拟卡已申请通过：可用于 Agent 服务订阅、SaaS、API 和传统网页收银台的卡支付 fallback。", "success");
+  appendLine("Binance 虚拟 Visa/Mastercard 卡已申请通过：卡号 4895 73•• •••• 9021，可用于 Agent 服务订阅、SaaS、API 和传统网页收银台。", "success");
   appendLine("Agent 专有额度：每日 100 USDT，单笔自动付款 10 USDT，仅允许已验证 API / MCP / 开发工具。", "system");
   appendLine("风控保障：高风险商户、异常频率、超限额、陌生链上地址都会触发人工确认或阻断。", "dim");
 }

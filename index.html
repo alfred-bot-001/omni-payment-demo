@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Binance Agent Wallet Demo</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <main class="terminal-page">
+    <nav class="tab-nav" aria-label="Demo 标签页">
+      <button class="active" type="button" data-tab="consumer">个人用户绑定 Binance Wallet 和购买 Agent 服务</button>
+      <button type="button" data-tab="checkout">第三方商家集成 Binance 统一收银台</button>
+      <button type="button" data-tab="marketplace">Binance Agent Marketplace</button>
+      <button type="button" data-tab="publish">Agent 商品发布上线</button>
+    </nav>
+
+    <section class="tab-panel active" id="consumer" aria-label="个人用户绑定 Binance Wallet 和购买 Agent 服务">
+      <section class="terminal-shell">
+        <header class="terminal-topbar">
+          <div class="window-dots"><i></i><i></i><i></i></div>
+        <div>
+          <p>claude-code session</p>
+          <h1>~/demo/binance-wallet-agent-pay</h1>
+        </div>
+          <div class="session-meta">
+            <span>model: Claude Sonnet</span>
+            <span id="walletStatus">wallet: 未绑定</span>
+          </div>
+        </header>
+
+        <div class="terminal-output" id="terminalOutput" aria-live="polite"></div>
+
+        <form class="terminal-input-row" id="terminalForm">
+          <span class="prompt">❯</span>
+          <input id="terminalInput" autocomplete="off" spellcheck="false" placeholder="输入：我要绑定binance agent wallet">
+          <button type="submit">↵</button>
+        </form>
+
+        <div class="quick-actions">
+          <span>演示命令</span>
+          <button type="button" data-command="我要绑定binance agent wallet">绑定 Binance Agent Wallet</button>
+          <button type="button" data-command="我要拉取BTC和ETH最近30天分钟级行情数据">拉取 BTC/ETH 近 30 天行情</button>
+        </div>
+      </section>
+    </section>
+
+    <section class="tab-panel" id="marketplace" aria-label="Agent Merchant Marketplace">
+      <header class="page-header">
+        <div>
+          <p>Binance Agent Marketplace</p>
+          <h1>Agent 可自动发现、报价、付款的数据服务市场</h1>
+        </div>
+        <button class="primary" type="button" data-tab-jump="consumer">用 Agent Wallet 购买</button>
+      </header>
+
+      <section class="market-toolbar">
+        <input value="加密货币实时价格 / DEX pair / X 数据 / 历史 OHLCV" aria-label="搜索数据服务">
+        <button class="secondary" type="button">筛选：Binance Verified</button>
+        <button class="secondary" type="button">支付：Agent Wallet / x402</button>
+      </section>
+
+      <section class="service-grid">
+        <article class="service-card featured">
+          <div class="service-top"><span>Binance Official</span><strong>Verified</strong></div>
+          <h2>Binance Market Data MCP</h2>
+          <p>实时币价、行情排名、交易对报价、K线 OHLCV、成交量、涨跌幅、资产元数据。</p>
+          <dl><div><dt>价格</dt><dd>0.005 USDT / call</dd></div><div><dt>协议</dt><dd>MCP + x402</dd></div></dl>
+          <button class="primary marketplace-buy" type="button" data-service="Binance Market Data MCP">让 Agent 调用</button>
+        </article>
+
+        <article class="service-card featured">
+          <div class="service-top"><span>Binance Official</span><strong>DEX Data</strong></div>
+          <h2>BNB Chain DEX Pair Quotes</h2>
+          <p>DEX 搜索、Pair Quote、池子流动性、swap 实时价格、链上交易明细，适合交易 Agent。</p>
+          <dl><div><dt>价格</dt><dd>0.01 USDT / call</dd></div><div><dt>协议</dt><dd>x402 endpoint</dd></div></dl>
+          <button class="primary marketplace-buy" type="button" data-service="BNB Chain DEX Pair Quotes">让 Agent 调用</button>
+        </article>
+
+        <article class="service-card featured">
+          <div class="service-top"><span>Binance Official</span><strong>Historical</strong></div>
+          <h2>Crypto Historical OHLCV</h2>
+          <p>分钟级/小时级/日级历史行情，面向回测、量化研究、投资组合分析和审计快照。</p>
+          <dl><div><dt>价格</dt><dd>0.02 USDT / query</dd></div><div><dt>范围</dt><dd>BTC/ETH/BNB 等主流资产</dd></div></dl>
+          <button class="primary marketplace-buy" type="button" data-service="Crypto Historical OHLCV">让 Agent 调用</button>
+        </article>
+
+        <article class="service-card">
+          <div class="service-top"><span>Binance Official</span><strong>Exchange</strong></div>
+          <h2>Exchange Reserve & Liquidity</h2>
+          <p>交易所资产储备、市场深度、交易对流动性和成交量指标，适合风控与研究场景。</p>
+          <dl><div><dt>价格</dt><dd>0.008 USDT / call</dd></div><div><dt>结算</dt><dd>USDT / FDUSD</dd></div></dl>
+          <button class="secondary marketplace-buy" type="button" data-service="Exchange Reserve & Liquidity">查看报价</button>
+        </article>
+
+        <article class="service-card">
+          <div class="service-top"><span>Binance Official</span><strong>Global</strong></div>
+          <h2>Global Crypto Metrics</h2>
+          <p>总市值、交易量、BTC/ETH dominance、稳定币规模、市场周期指标。</p>
+          <dl><div><dt>价格</dt><dd>0.003 USDT / call</dd></div><div><dt>更新</dt><dd>1 min</dd></div></dl>
+          <button class="secondary marketplace-buy" type="button" data-service="Global Crypto Metrics">查看报价</button>
+        </article>
+
+        <article class="service-card">
+          <div class="service-top"><span>Binance Official</span><strong>WebSocket</strong></div>
+          <h2>Binance Realtime Stream</h2>
+          <p>面向 Agent 的实时行情流：ticker、order book、trades、mark price、funding rate。</p>
+          <dl><div><dt>价格</dt><dd>0.02 USDT / minute</dd></div><div><dt>支付</dt><dd>Agent Wallet</dd></div></dl>
+          <button class="secondary marketplace-buy" type="button" data-service="Binance Realtime Stream">查看报价</button>
+        </article>
+      </section>
+    </section>
+
+    <section class="tab-panel" id="publish" aria-label="Agent 商品发布上线">
+      <header class="page-header">
+        <div>
+          <p>Agent Product Launch</p>
+          <h1>Agent 商品发布上线</h1>
+        </div>
+        <button class="primary" id="publishDemo" type="button">模拟上架</button>
+      </header>
+
+      <section class="split-layout">
+        <div class="wizard">
+          <div class="wizard-step active"><span>1</span><div><strong>创建商户项目</strong><p>生成 agent-service.json、OpenAPI、MCP tools。</p></div></div>
+          <div class="wizard-step"><span>2</span><div><strong>配置商品与报价</strong><p>定义能力、计费单位、试用额度、退款策略。</p></div></div>
+          <div class="wizard-step"><span>3</span><div><strong>KYB / 风控审核</strong><p>绑定 Binance Merchant ID，设置自动付款白名单。</p></div></div>
+          <div class="wizard-step"><span>4</span><div><strong>发布到 Marketplace</strong><p>Agent 可以搜索、比较、请求 quote 并自动付款。</p></div></div>
+        </div>
+        <pre class="code-card" id="publishLog">binance merchant init binance-market-data
+binance merchant attach-mcp https://mcp.market-data.binance.com
+binance merchant publish --agent-discoverable</pre>
+      </section>
+    </section>
+
+    <section class="tab-panel" id="checkout" aria-label="第三方商家集成 Binance 统一收银台">
+      <header class="page-header">
+        <div>
+          <p>Third-party Merchant Checkout</p>
+          <h1>第三方商家集成 Binance 统一收银台</h1>
+          <p class="header-subtitle">一站式全资产支付服务提供商：一次接入，触达 Binance 3 亿用户，覆盖法币 / 加密全类型资产，并使用加密领域风控网络管理交易风险。</p>
+        </div>
+        <div class="header-actions">
+          <button class="primary" id="checkoutDemo" type="button">集成 Binance 收银台</button>
+          <button class="secondary" id="testWebPayment" type="button" disabled>测试网页支付</button>
+        </div>
+      </header>
+
+      <section class="terminal-shell merchant-terminal">
+        <header class="terminal-topbar">
+          <div class="window-dots"><i></i><i></i><i></i></div>
+          <div>
+            <p>claude-code session</p>
+            <h1>~/company/twitterapi-web</h1>
+          </div>
+          <div class="session-meta">
+            <span>branch: feature/binance-checkout</span>
+            <span id="merchantStatus">merchant: 未连接</span>
+          </div>
+        </header>
+
+        <div class="terminal-output" id="checkoutOutput" aria-live="polite"></div>
+
+        <form class="terminal-input-row" id="checkoutForm">
+          <span class="prompt">❯</span>
+          <input id="checkoutInput" autocomplete="off" spellcheck="false" placeholder="输入：集成binance统一收银台">
+          <button type="submit">↵</button>
+        </form>
+
+        <div class="quick-actions">
+          <span>演示命令</span>
+          <button type="button" id="checkoutQuick">集成 Binance 统一收银台</button>
+          <button type="button" id="openMerchantSite" disabled>测试传统网页线上支付</button>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <div class="auth-modal" id="authModal" aria-hidden="true">
+    <section class="merchant-browser auth-browser" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+      <header class="browser-header">
+        <div class="window-dots"><i></i><i></i><i></i></div>
+        <div class="address-bar">https://accounts.binance.com/oauth/authorize</div>
+        <button id="closeAuth" type="button" aria-label="关闭">×</button>
+      </header>
+
+      <div class="auth-body">
+        <div class="checkout-brand">
+          <div class="binance-logo">◆</div>
+          <div>
+            <p>Binance Agent Wallet</p>
+            <h2 id="authTitle">授权 Binance Agent Wallet</h2>
+          </div>
+        </div>
+
+        <section class="login-card" id="loginStep">
+          <p class="step-label">步骤 1 / 3</p>
+          <h3>登录 Binance 账户并开通 Agent 专有 Wallet</h3>
+          <p>一个钱包管理 Binance 余额、银行卡、链上钱包等法币 / 加密资产，并为个人 Agent 开独立 API Key 和专有额度。</p>
+          <div class="fake-input">max.dev@demo.com</div>
+          <button class="primary" id="loginBtn" type="button">使用 Binance App / Passkey 登录</button>
+        </section>
+
+        <section class="permission-card hidden" id="permissionStep">
+          <p class="step-label">步骤 2 / 3</p>
+          <h3>选择 Agent 可用支付方式</h3>
+          <p>这些资金来源会组成统一 Agent Wallet。你可以调整支付顺序，并设置自动付款限额。</p>
+
+          <div class="payment-list" id="paymentList">
+            <div class="payment-method" data-method="pay">
+              <span class="drag">↕</span>
+              <div><strong>Binance 钱包余额</strong><small>Funding / Pay：582.40 USDT，240.00 FDUSD</small></div>
+              <span>优先</span>
+            </div>
+            <div class="payment-method" data-method="chain">
+              <span class="drag">↕</span>
+              <div><strong>链上钱包余额</strong><small>BNB Chain / opBNB：0.84 BNB，126.50 USDT</small></div>
+              <span>第二</span>
+            </div>
+            <div class="payment-method" data-method="card">
+              <span class="drag">↕</span>
+              <div><strong>绑定银行卡</strong><small>Visa **** 1848，仅在余额不足时提示确认</small></div>
+              <span>备用</span>
+            </div>
+          </div>
+
+          <div class="limit-grid">
+            <label>每日自动付款限额<input id="dailyLimit" value="100 USDT"></label>
+            <label>单笔自动付款限额<input id="txLimit" value="10 USDT"></label>
+            <label>授权有效期<input id="authDays" value="30 天"></label>
+          </div>
+
+          <div class="policy-note">
+            Agent 专有风控：仅允许已验证的数据源、API、MCP server 和开发工具。新商户、高风险或超限额付款必须人工确认。异常交易进入 Binance 风控保障流程。
+          </div>
+
+          <button class="primary" id="confirmAuth" type="button">确认授权</button>
+        </section>
+
+        <section class="success-card hidden" id="successStep">
+          <p class="step-label">步骤 3 / 3</p>
+          <h3>授权完成</h3>
+          <p>Binance Agent Wallet 已绑定到 Claude Code / Codex。Agent 专有 API Key 已创建，额度和风控策略已生效。</p>
+          <button class="primary" id="returnTerminal" type="button">返回开发者终端</button>
+        </section>
+      </div>
+    </section>
+  </div>
+
+  <div class="auth-modal" id="merchantSiteModal" aria-hidden="true">
+    <section class="merchant-browser" role="dialog" aria-modal="true" aria-labelledby="merchantSiteTitle">
+      <header class="browser-header">
+        <div class="window-dots"><i></i><i></i><i></i></div>
+        <div class="address-bar">https://twitterapi.io/pricing</div>
+        <button id="closeMerchantSite" type="button" aria-label="关闭">×</button>
+      </header>
+      <div class="merchant-site">
+        <div>
+          <p class="site-eyebrow">twitterapi.io</p>
+          <h2 id="merchantSiteTitle">X / Twitter Data API</h2>
+          <p>第三方数据服务商已接入 Binance 统一收银台。用户可以一次性购买数据包，也可以订阅持续 API 服务，统一使用 Binance 钱包、链上钱包或银行卡支付。</p>
+          <div class="merchant-badges">
+            <span>Binance Checkout enabled</span>
+            <span>Agent Pay ready</span>
+            <span>USDT / Card / DEX Wallet</span>
+          </div>
+        </div>
+        <div class="product-list">
+          <article class="product-card">
+            <div><strong>Elon Musk 近 30 天公开内容包</strong><span>一次性数据包，含正文、时间戳、互动指标和原始链接</span></div>
+            <div class="price-tag">$1.00</div>
+            <button class="primary buy-product" type="button" data-product="Elon Musk 近 30 天公开内容包" data-amount="1.00">一次性购买</button>
+          </article>
+          <article class="product-card">
+            <div><strong>Keyword Tracking API</strong><span>订阅服务，每小时同步关键词、作者和互动数据</span></div>
+            <div class="price-tag">$29/月</div>
+            <button class="secondary buy-product" type="button" data-product="Keyword Tracking API 订阅" data-amount="29.00">订阅服务</button>
+          </article>
+          <article class="product-card">
+            <div><strong>Enterprise Firehose</strong><span>面向企业 Agent 的高频数据流和 SLA 支持</span></div>
+            <div class="price-tag">$299/月</div>
+            <button class="secondary buy-product" type="button" data-product="Enterprise Firehose 订阅" data-amount="299.00">订阅服务</button>
+          </article>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="auth-modal" id="binanceCheckoutModal" aria-hidden="true">
+    <section class="merchant-browser checkout-browser" role="dialog" aria-modal="true" aria-labelledby="binanceCheckoutTitle">
+      <header class="browser-header">
+        <div class="window-dots"><i></i><i></i><i></i></div>
+        <div class="address-bar" id="checkoutAddress">https://accounts.binance.com/login?continue=checkout</div>
+        <button id="closeBinanceCheckout" type="button" aria-label="关闭">×</button>
+      </header>
+
+      <div class="checkout-body">
+        <div class="checkout-brand">
+          <div class="binance-logo">◆</div>
+          <div>
+            <p>Binance Unified Checkout</p>
+            <h2 id="binanceCheckoutTitle">选择付款方式</h2>
+          </div>
+        </div>
+
+        <section class="checkout-step" id="checkoutLoginStep">
+          <div class="checkout-summary">
+            <span id="checkoutMerchant">商户：twitterapi.io</span>
+            <strong id="checkoutAmount">订单金额：1.00 USD</strong>
+            <small>请先登录 Binance。登录后将进入统一钱包页面完成支付。</small>
+          </div>
+          <div class="fake-input">max.dev@demo.com</div>
+          <button class="primary" id="checkoutLoginBtn" type="button">使用 Binance App / Passkey 登录</button>
+        </section>
+
+        <section class="checkout-step hidden" id="checkoutWalletStep">
+          <div class="checkout-summary">
+            <span id="walletCheckoutMerchant">商户：twitterapi.io</span>
+            <strong id="walletCheckoutAmount">订单金额：1.00 USD</strong>
+            <small>Binance 统一钱包：可使用 Binance 余额、链上 / DEX 钱包余额或绑定银行卡。</small>
+          </div>
+
+          <div class="checkout-methods">
+            <button class="payment-choice selected" type="button" data-pay-method="Binance 钱包余额">
+              <span>Binance 钱包余额</span><strong>582.40 USDT + 240.00 FDUSD</strong>
+            </button>
+            <button class="payment-choice" type="button" data-pay-method="链上 DEX 钱包余额">
+              <span>链上 / DEX 钱包余额</span><strong>0.84 BNB + 126.50 USDT on BNB Chain</strong>
+            </button>
+            <button class="payment-choice" type="button" data-pay-method="绑定银行卡">
+              <span>绑定银行卡</span><strong>Visa **** 1848</strong>
+            </button>
+          </div>
+
+          <button class="primary" id="confirmCheckoutPay" type="button">确认支付</button>
+          <p class="checkout-result" id="checkoutResult"></p>
+        </section>
+
+        <section class="checkout-step hidden" id="checkoutSuccessStep">
+          <div class="success-mark">✓</div>
+          <h3>支付成功</h3>
+          <p id="checkoutSuccessText">订单已完成，商户将收到 Binance Checkout webhook。</p>
+          <button class="primary" id="closeCheckoutSuccess" type="button">关闭</button>
+        </section>
+      </div>
+    </section>
+  </div>
+
+  <script src="./app.js"></script>
+</body>
+</html>
